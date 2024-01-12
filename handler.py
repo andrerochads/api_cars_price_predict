@@ -11,7 +11,7 @@ model = pickle.load(open('model/model_car_price_pred.pkl', 'rb')) # deploy
 
 # initialize API - ( End point ativo... então ela terá o end point ativo e o modelo em memória esperando requisição)
 app = Flask(__name__)
-@app.route('/cars-price-predict', methods=['POST'])
+@app.route('/api-cars-price-predict', methods=['POST'])
 
 def rossmann_predict():
     car_json = request.get_json()
