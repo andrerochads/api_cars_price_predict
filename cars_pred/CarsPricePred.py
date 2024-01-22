@@ -6,7 +6,6 @@ import math
 
 class CarsPricePred(object):
     def __init__(self):
-        # self.home_path='C:/Users/andre/repos/cursos_ds/9_car_price_prediction/' self.home_path + teste local
         self.ano_de_fabricacao_scaler = pickle.load(open('parameter/ano_de_fabricacao.pkl', 'rb'))
         self.ano_modelo_scaler =        pickle.load(open('parameter/ano_modelo.pkl', 'rb'))
         self.cilindradas_scaler =       pickle.load(open('parameter/cilindradas.pkl', 'rb'))
@@ -42,7 +41,7 @@ class CarsPricePred(object):
         # prediction
         price_pred = model.predict(df_to_pred)
 
-        # join pred into the original data
+        # join prediction into the original data
         df_car['preco_sugerido'] = np.expm1(price_pred)
 
         return df_car.to_json(orient='records')

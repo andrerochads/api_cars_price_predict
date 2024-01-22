@@ -5,11 +5,9 @@ from flask import Flask, request, Response
 from cars_pred.CarsPricePred import CarsPricePred
 
 # Loading ML model
-model = pickle.load(open('model/model_car_price_pred.pkl', 'rb')) # deploy
-# model = pickle.load(open('C:/Users/andre/repos/cursos_ds/9_car_price_prediction/model/model_car_price_pred.pkl', 'rb'))
+model = pickle.load(open('model/model_car_price_pred.pkl', 'rb'))
 
-
-# initialize API - ( End point ativo... então ela terá o end point ativo e o modelo em memória esperando requisição)
+# Initialize API
 app = Flask(__name__)
 @app.route('/api-cars-price-predict', methods=['POST'])
 
@@ -21,13 +19,15 @@ def rossmann_predict():
             df_car = pd.DataFrame(car_json, index=[0])
         else: # multiple example
             df_car = pd.DataFrame(car_json, columns=car_json[0].keys())
-            #[0].keys() para usar como colunas as primeiras chaves no df, mas pega o valor da primeira sim. 
+            #[0].keys() para usar como colunas as primeiras chaves no df
 
-        # Instantiate Rossmann class
+        # Instantiate CarsPricePred class
         pipeline = CarsPricePred()
 
         # -----------------------------------------------
-        # Não necessário nesse caso.
+        # Observação!!!
+        # Não necessário nesse caso:
+        #
         # data cleaning
         # df1 = pipeline.data_cleaning( df_car )
         # feature engineering
